@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import photo from "@/assets/yash.jpeg.asset.json";
+import photo from "@/assets/yash-cutout.png";
 import resume from "@/assets/resume.png.asset.json";
 import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { ArrowDown, ArrowUpRight, Github, ShieldCheck, ScanLine, AudioLines, Mail } from "lucide-react";
@@ -55,13 +55,13 @@ function Index() {
       <div className="hero-layout mx-auto w-full max-w-6xl">
         <MotionSurface className="hero-copy" strength={2}>
           <div className="mb-5 flex items-center gap-2 text-sm text-muted-foreground"><span className="status-dot" />Open to internship opportunities</div>
-          <p className="mb-4 font-display text-xs uppercase text-primary">Developer / Problem solver / CSBS</p>
           <h1 className="hero-name font-bold"><span>YASH</span><span className="text-ember">NEMA</span></h1>
+          <div className="role-badge font-display"><span aria-hidden="true" className="role-marker">&lt;/&gt;</span><span>Developer <span className="role-divider">/</span> Problem Solver <span className="role-divider">/</span> CSBS Student</span></div>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">Aspiring Full-Stack Developer turning ideas into practical, user-focused applications.</p>
           <div className="mt-8 flex flex-wrap gap-3"><Magnetic href="#projects">View projects<ArrowUpRight /></Magnetic><Magnetic href={LINKS.github} variant="ghost"><Github />GitHub</Magnetic></div>
         </MotionSurface>
-        <MotionSurface className="portrait-surface" strength={12}>
-          <div className="portrait-frame"><div className="portrait-topline"><span>YN / PROFILE</span><span className="status-dot" /></div><div className="portrait-image"><img src={photo.url} alt="Yash Nema" /></div><div className="portrait-caption"><span>YASH NEMA</span><span className="text-primary" aria-hidden="true">&lt;/&gt;</span></div></div>
+        <MotionSurface className="portrait-surface" strength={36} trackViewport>
+          <div className="portrait-frame"><div className="portrait-topline"><span>YN / PROFILE</span><span className="status-dot" /></div><div className="portrait-image"><img src={photo} alt="Yash Nema" /></div><div className="portrait-caption"><span>YASH NEMA</span><span className="text-primary" aria-hidden="true">&lt;/&gt;</span></div></div>
           <span className="portrait-corner corner-top" aria-hidden="true" /><span className="portrait-corner corner-bottom" aria-hidden="true" />
         </MotionSurface>
       </div>
