@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep shared pointer, reveal, and ambient behavior in portfolio-motion; all effects must respect reduced-motion preferences.
+- Keep technology logo mappings in portfolio-stack, using Simple Icons where available and recognizable Lucide fallbacks otherwise.
