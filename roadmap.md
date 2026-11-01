@@ -1,5 +1,5 @@
-# Portfolio update
-- [x] Update hero name, photo framing, and pointer motion.
-- [x] Reorder and enrich projects and tech stack with logos.
-- [x] Add ambient details and accessible scroll/pointer effects.
-- [x] Verify the updated portfolio on desktop and small screens.
+# Portfolio refinement
+- [ ] Remove portrait background while preserving the original face; enlarge its frame.
+- [ ] Add screen-wide portrait tilt and a separate animated role badge.
+- [ ] Redesign section 03 technology presentation.
+- [ ] Verify desktop, mobile, and reduced-motion behavior.
