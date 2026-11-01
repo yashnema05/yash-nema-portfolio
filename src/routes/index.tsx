@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import photo from "@/assets/yash.jpeg.asset.json";
+import resume from "@/assets/resume.png.asset.json";
 import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
 
 export const Route = createFileRoute("/")({
@@ -177,7 +179,8 @@ function Index() {
         <div className="grid-bg absolute inset-0" style={{ transform: `translateY(${y * 0.3}px)` }} />
         <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-primary/30 blur-[120px] animate-float" style={{ translate: `0 ${y * 0.5}px` }} />
         <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-ember-glow/20 blur-[120px] animate-float" style={{ translate: `0 ${-y * 0.3}px`, animationDelay: "2s" }} />
-        <div className="relative mx-auto w-full max-w-6xl" style={{ transform: `translateY(${y * 0.15}px)`, opacity: Math.max(0, 1 - y / 700) }}>
+        <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-[1.4fr_1fr]" style={{ transform: `translateY(${y * 0.15}px)`, opacity: Math.max(0, 1 - y / 700) }}>
+          <div>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm text-muted-foreground animate-in fade-in slide-in-from-bottom-4 duration-700">
             <span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> Open to internship opportunities
           </div>
@@ -190,6 +193,11 @@ function Index() {
           <div className="mt-10 flex flex-wrap gap-4 animate-in fade-in duration-1000 delay-500 fill-mode-both">
             <Magnetic href="#projects">View projects →</Magnetic>
             <Magnetic href={LINKS.github} variant="ghost">GitHub</Magnetic>
+          </div>
+          </div>
+          <div className="relative mx-auto w-64 md:w-full animate-float">
+            <div className="absolute -inset-3 rounded-[2rem] bg-ember opacity-40 blur-2xl" />
+            <img src={photo.url} alt="Yash Nema" className="relative aspect-[4/5] w-full rounded-[2rem] border object-cover" />
           </div>
         </div>
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs uppercase tracking-[0.3em] text-muted-foreground">Scroll ↓</div>
@@ -268,14 +276,10 @@ function Index() {
       {/* RESUME */}
       <section id="resume" className="relative mx-auto max-w-6xl px-6 py-32">
         <SectionTitle k="04 / Resume" title="My resume." />
-        <div className="reveal glass relative grid aspect-[1/1.3] max-h-[900px] w-full place-items-center overflow-hidden rounded-2xl border-dashed md:aspect-[16/10]">
-          <div className="grid-bg absolute inset-0 opacity-60" />
-          <div className="relative px-6 text-center">
-            <div className="mx-auto mb-6 grid h-20 w-20 place-items-center rounded-2xl bg-ember text-3xl text-primary-foreground">📄</div>
-            <p className="font-display text-2xl font-semibold md:text-3xl">Iske baad mere poore resume ki photo laga dena</p>
-            <p className="mt-3 text-sm text-muted-foreground">Resume image placeholder</p>
-          </div>
+        <div className="reveal glass mx-auto max-w-3xl overflow-hidden rounded-2xl p-3">
+          <img src={resume.url} alt="Yash Nema resume" className="w-full rounded-xl" />
         </div>
+        <div className="mt-8 text-center"><Magnetic href={resume.url}>Open full resume ↗</Magnetic></div>
       </section>
 
       {/* CONTACT */}
