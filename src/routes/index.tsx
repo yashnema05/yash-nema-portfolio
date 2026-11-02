@@ -4,7 +4,7 @@ import resume from "@/assets/resume.png.asset.json";
 import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { ArrowDown, ArrowUpRight, Github, ShieldCheck, ScanLine, AudioLines, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AmbientField, MotionSurface, usePortfolioMotion } from "@/components/portfolio-motion";
+import { AmbientField, MotionSurface, usePortfolioMotion, useInteractiveExtras, RotatingWord } from "@/components/portfolio-motion";
 import { TechStack } from "@/components/portfolio-stack";
 
 export const Route = createFileRoute("/")({
@@ -41,10 +41,11 @@ function Magnetic({ children, href, variant = "solid" }: { children: ReactNode; 
   return <Button asChild variant={variant === "solid" ? "default" : "outline"} className={`magnetic h-auto rounded-full px-6 py-3.5 ${variant === "solid" ? "bg-ember" : "glass"}`}><a ref={ref} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" onMouseMove={move} onMouseLeave={() => { if (ref.current) ref.current.style.transform = ""; }}>{children}</a></Button>;
 }
 function SectionTitle({ k, title }: { k: string; title: string }) {
-  return <div className="reveal mb-10 md:mb-12"><p className="mb-3 font-display text-sm uppercase text-primary">{k}</p><h2 className="text-4xl font-bold md:text-6xl">{title}</h2></div>;
+  return <div className="reveal mb-10 md:mb-12"><p className="mb-3 font-display text-sm uppercase text-primary">{k}</p><h2 data-scramble className="text-4xl font-bold md:text-6xl">{title}</h2></div>;
 }
 function Index() {
   usePortfolioMotion();
+  useInteractiveExtras();
   return <div className="relative"><Cursor /><AmbientField /><div className="scroll-progress" aria-hidden="true" />
     <header className="fixed inset-x-0 top-4 z-40 mx-auto flex w-[min(94%,1040px)] items-center justify-between rounded-full glass px-5 py-3">
       <a href="#top" className="font-display text-lg font-bold" aria-label="Back to top">YN<span className="text-primary">/</span></a>
@@ -57,7 +58,7 @@ function Index() {
           <div className="mb-5 flex items-center gap-2 text-sm text-muted-foreground"><span className="status-dot" />Open to internship opportunities</div>
           <h1 className="hero-name font-bold"><span>YASH</span><span className="text-ember">NEMA</span></h1>
           <div className="role-badge font-display"><span aria-hidden="true" className="role-marker">&lt;/&gt;</span><span>Developer <span className="role-divider">/</span> Problem Solver <span className="role-divider">/</span> CSBS Student</span></div>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">Aspiring Full-Stack Developer turning ideas into practical, user-focused applications.</p>
+          <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">Aspiring Full-Stack Developer turning ideas into <RotatingWord words={["practical", "user-focused", "intelligent", "scalable"]} /> applications.</p>
           <div className="mt-8 flex flex-wrap gap-3"><Magnetic href="#projects">View projects<ArrowUpRight /></Magnetic><Magnetic href={LINKS.github} variant="ghost"><Github />GitHub</Magnetic></div>
         </MotionSurface>
         <MotionSurface className="portrait-surface" strength={36} trackViewport>
