@@ -104,7 +104,7 @@ export function useInteractiveExtras() {
     if (reduced) return () => spy.disconnect();
     // Scramble headings on reveal + hover
     const scramble = (el: HTMLElement) => {
-      const final = el.dataset.text ?? el.textContent ?? ""; el.dataset.text = final;
+      const final = el.dataset["text"] ?? el.textContent ?? ""; el.dataset["text"] = final;
       let frame = 0; const total = 18;
       const tick = () => {
         el.textContent = final.split("").map((c, i) => c === " " || i < (frame / total) * final.length ? c : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
@@ -133,7 +133,7 @@ export function RotatingWord({ words }: { words: string[] }) {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let i = 0;
-    const id = setInterval(() => { i = (i + 1) % words.length; const el = ref.current; if (!el) return; el.classList.remove("word-in"); void el.offsetWidth; el.textContent = words[i]; el.classList.add("word-in"); }, 2400);
+    const id = setInterval(() => { i = (i + 1) % words.length; const el = ref.current; if (!el) return; el.classList.remove("word-in"); void el.offsetWidth; el.textContent = words[i] ?? ""; el.classList.add("word-in"); }, 2400);
     return () => clearInterval(id);
   }, [words]);
   return <span ref={ref} className="rotating-word word-in">{words[0]}</span>;
