@@ -41,7 +41,7 @@ function Magnetic({ children, href, variant = "solid" }: { children: ReactNode; 
   return <Button asChild variant={variant === "solid" ? "default" : "outline"} className={`magnetic h-auto rounded-full px-6 py-3.5 ${variant === "solid" ? "bg-ember" : "glass"}`}><a ref={ref} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" onMouseMove={move} onMouseLeave={() => { if (ref.current) ref.current.style.transform = ""; }}>{children}</a></Button>;
 }
 function SectionTitle({ k, title }: { k: string; title: string }) {
-  return <div className="reveal mb-10 md:mb-12"><p className="mb-3 font-display text-sm uppercase text-primary">{k}</p><h2 data-scramble className="text-4xl font-bold md:text-6xl">{title}</h2></div>;
+  return <div className="reveal mb-10 md:mb-12"><p className="mb-3 font-display text-sm uppercase text-primary">{k}</p><h2 className="text-4xl font-bold md:text-6xl">{title}</h2></div>;
 }
 function Index() {
   usePortfolioMotion();
