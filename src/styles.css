@@ -249,3 +249,17 @@
   .reveal.reveal-ready { opacity: 1; transform: none; }
   .ambient-grid { transform: none; }
 }
+
+/* Interactive extras */
+.nav-link.is-active { color: var(--foreground); }
+.nav-link.is-active::after { width: 100%; }
+.interactive-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--primary) 18%, transparent), transparent 65%); }
+.interactive-card:hover::after { opacity: 1; }
+.rotating-word { display: inline-block; color: var(--primary); }
+.word-in { animation: word-in .55s cubic-bezier(.2,.8,.2,1); }
+@keyframes word-in { from { opacity: 0; transform: translateY(60%); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+[data-scramble] { cursor: default; }
+.spark-burst { position: fixed; z-index: 120; pointer-events: none; width: 0; height: 0; }
+.spark-burst i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--ember-glow); box-shadow: 0 0 8px var(--primary); animation: spark .65s ease-out forwards; }
+@keyframes spark { from { transform: rotate(var(--a)) translateX(0); opacity: 1; } to { transform: rotate(var(--a)) translateX(42px) scale(.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .word-in, .spark-burst i { animation: none; } }

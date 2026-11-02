@@ -90,3 +90,51 @@ export function usePortfolioMotion() {
     return () => { observer.disconnect(); cancelAnimationFrame(frame); window.removeEventListener("scroll", update); };
   }, []);
 }
+const GLYPHS = "!<>-_\\/[]{}=+*^?#01";
+export function useInteractiveExtras() {
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Active section highlight in nav
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>(".nav-link"));
+    const spy = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(l => l.classList.toggle("is-active", l.getAttribute("href") === `#${e.target.id}`));
+    }), { rootMargin: "-45% 0px -50% 0px" });
+    links.forEach(l => { const s = document.querySelector(l.getAttribute("href") || ""); if (s) spy.observe(s); });
+    if (reduced) return () => spy.disconnect();
+    // Scramble headings on reveal + hover
+    const scramble = (el: HTMLElement) => {
+      const final = el.dataset.text ?? el.textContent ?? ""; el.dataset.text = final;
+      let frame = 0; const total = 18;
+      const tick = () => {
+        el.textContent = final.split("").map((c, i) => c === " " || i < (frame / total) * final.length ? c : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
+        if (++frame <= total) requestAnimationFrame(tick); else el.textContent = final;
+      };
+      tick();
+    };
+    const heads = Array.from(document.querySelectorAll<HTMLElement>("[data-scramble]"));
+    const seen = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { scramble(e.target as HTMLElement); seen.unobserve(e.target); } }), { threshold: .6 });
+    const onEnter = (e: Event) => scramble(e.currentTarget as HTMLElement);
+    heads.forEach(h => { seen.observe(h); h.addEventListener("pointerenter", onEnter); });
+    // Click sparks
+    const click = (e: globalThis.MouseEvent) => {
+      const burst = document.createElement("div"); burst.className = "spark-burst"; burst.setAttribute("aria-hidden", "true");
+      burst.style.left = `${e.clientX}px`; burst.style.top = `${e.clientY}px`;
+      for (let i = 0; i < 10; i++) { const s = document.createElement("i"); s.style.setProperty("--a", `${i * 36}deg`); burst.appendChild(s); }
+      document.body.appendChild(burst); setTimeout(() => burst.remove(), 700);
+    };
+    window.addEventListener("click", click);
+    return () => { spy.disconnect(); seen.disconnect(); heads.forEach(h => h.removeEventListener("pointerenter", onEnter)); window.removeEventListener("click", click); };
+  }, []);
+}
+
+export function RotatingWord({ words }: { words: string[] }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let i = 0;
+    const id = setInterval(() => { i = (i + 1) % words.length; const el = ref.current; if (!el) return; el.classList.remove("word-in"); void el.offsetWidth; el.textContent = words[i]; el.classList.add("word-in"); }, 2400);
+    return () => clearInterval(id);
+  }, [words]);
+  return <span ref={ref} className="rotating-word word-in">{words[0]}</span>;
+}
